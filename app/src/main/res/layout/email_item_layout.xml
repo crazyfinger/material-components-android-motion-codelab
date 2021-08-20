@@ -43,6 +43,7 @@
             android:elevation="@dimen/plane_00"
             android:clickable="true"
             android:focusable="true"
+          android:transitionName="@{@string/email_card_transition_name(email.id)}"
             android:onClick="@{(view) -> listener.onEmailClicked(view, email)}"
             android:onLongClick="@{(view) -> listener.onEmailLongPressed(email)}"
             app:cardPreventCornerOverlap="false">
