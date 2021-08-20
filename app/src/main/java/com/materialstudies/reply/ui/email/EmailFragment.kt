@@ -48,7 +48,6 @@ class EmailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TODO: Set up MaterialContainerTransform transition as sharedElementEnterTransition.
       sharedElementEnterTransition = MaterialContainerTransform().apply {
           drawingViewId = R.id.nav_host_fragment
         duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()

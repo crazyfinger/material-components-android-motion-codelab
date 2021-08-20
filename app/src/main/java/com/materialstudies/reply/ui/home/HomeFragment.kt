@@ -17,6 +17,7 @@
 package com.materialstudies.reply.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,8 +62,11 @@ class HomeFragment : Fragment(), EmailAdapter.EmailAdapterListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: Set up MaterialFadeThrough enterTransition.
+    //由于HomeFragment设置了singleTop=true，意味着不存在从HomeFragment后退的情况，所以不用设置returnTransition
+      enterTransition = MaterialFadeThrough().apply {
+        duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+      }
+      Log.i("TAG", "onCreate: $this")
     }
 
     override fun onCreateView(
@@ -76,6 +80,7 @@ class HomeFragment : Fragment(), EmailAdapter.EmailAdapterListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+      Log.i("TAG", "onViewCreated: $this")
         postponeEnterTransition()
       binding.recyclerView.doOnPreDraw { startPostponedEnterTransition() }
         // Only enable the on back callback if this home fragment is a mailbox other than Inbox.
@@ -127,4 +132,14 @@ class HomeFragment : Fragment(), EmailAdapter.EmailAdapterListener {
     override fun onEmailArchived(email: Email) {
         EmailStore.delete(email.id)
     }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    Log.i("TAG", "onDestroyView: $this")
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    Log.i("TAG", "onDestroy: $this")
+  }
 }
