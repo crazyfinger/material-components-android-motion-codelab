@@ -76,7 +76,6 @@ class HomeFragment : Fragment(), EmailAdapter.EmailAdapterListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: Set up postponed enter transition.
         postponeEnterTransition()
       binding.recyclerView.doOnPreDraw { startPostponedEnterTransition() }
         // Only enable the on back callback if this home fragment is a mailbox other than Inbox.
