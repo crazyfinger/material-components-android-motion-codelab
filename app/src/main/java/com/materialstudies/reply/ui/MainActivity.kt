@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialSharedAxis
 import com.materialstudies.reply.R
 import com.materialstudies.reply.data.EmailStore
 import com.materialstudies.reply.databinding.ActivityMainBinding
@@ -283,7 +284,18 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun navigateToSearch() {
-        // TODO: Set up MaterialSharedAxis transition as exit and reenter transitions.
+      // 两个页面要保持相同的方式进入退出，所以点击进入搜索页面时，
+      // 当前页面退场动画和搜索页进场动画MaterialSharedAxis 的forward参数都为true
+      //返回时都为false
+      //MaterialSharedAxis.Z动画表现为进场页面从scale 0.8->1，退场页面scale从1->1.1
+        currentNavigationFragment?.apply {
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z,true).apply {
+                duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            }
+            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z,false).apply {
+                duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            }
+        }
         val directions = SearchFragmentDirections.actionGlobalSearchFragment()
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
